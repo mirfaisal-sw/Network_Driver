@@ -3,4 +3,4 @@
 1) Ping command: -
   # ping -I wlan0 192.168.1.102
   
-2) 
+2) ifconfig command: -
