@@ -4,3 +4,23 @@
   # ping -I wlan0 192.168.1.102
   
 2) ifconfig command: -
+
+
+3) route command: -
+	route command show/manipulate the IP routing table.
+	#route
+	O/p -
+	Kernel IP routing table
+	Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+
+	default         _gateway        0.0.0.0         UG    100    0        0 enp0s3
+	10.0.2.0        0.0.0.0         255.255.255.0   U     100    0        0 enp0s3
+	link-local      0.0.0.0         255.255.0.0     U     1000   0        0 enp0s3
+
+4) arp command: - 
+	We can use arp[-n] command to view all of the MAC address that our host has stored in its arp table. These are local hosts on the
+	local network.
+	# arp -n
+	O/p - 
+	 Address		HWtyoe		HWaddress	Flag Mask	Iface
+	 172.16.107.1	ether	    00:50:56:c0:00:08     C		ens32

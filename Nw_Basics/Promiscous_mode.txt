@@ -1,0 +1,12 @@
+
+Promiscous mode in Networking: -
+===================================
+In an Ethernet local area network (LAN), promiscuous mode
+ensures that every data packet that is transmitted is received
+and read by a network adapter. This means the adapter does not
+filter packets. Instead, it passes each packet on to the operating
+system (OS) or any monitoring application installed on the network.
+
+Packet sniffers uses Promiscous mode. This enables the interface or adapter to 
+pass all network traffic up the stack, regardless of the packets' destination
+addresses.
