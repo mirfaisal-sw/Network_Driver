@@ -1,0 +1,20 @@
+
+
+Offloading: - 
+==============
+Most modern operating systems support some form of network offloading, where some network processing happens on the NIC instead of the CPU.
+Normally this is a great thing. It can free up resources on the rest of the system and let it handle more connections. 
+
+Checksum Offload
+-----------------
+On systems that support checksum offloading, IP, TCP, and UDP checksums are calculated on the NIC just before they're transmitted on the wire.
+In Wireshark these show up as outgoing packets marked black with red Text and the note [incorrect, should be xxxx (maybe caused by "TCP checksum offload"?)].
+
+Linux
+--------
+Checksum offloading can be enabled and disabled with the ethtool command.
+To check:
+	ethtool --show-offload  ethX
+
+To disable:
+	ethtool --offload  ethX  rx off  tx off
