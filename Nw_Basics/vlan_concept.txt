@@ -1,0 +1,13 @@
+VLAN: -
+--------
+--  Using VLAN, different small-size sub-networks are created which are comparatively easy to handle. 
+--  Virtual LAN (VLAN) is a concept in which we can divide the devices logically on layer 2 (data link layer)
+    using a switch.
+--  Generally, layer 3 devices divide the broadcast domain but swithces can also divide the broadcast domain 
+    using the concept of VLAN. 
+	A broadcast domain is a network segment in which if a device broadcast a packet then all the devices in the
+	same broadcast domain will receive it. The devices in the same broadcast domain will receive all the broadcast
+	packets but it is limited to switches only as routers don’t forward out the broadcast packet.
+	To forward out the packets to different VLAN (from one VLAN to another) or broadcast domains, inter Vlan routing
+	is needed.
+
