@@ -1,0 +1,7 @@
+
+
+
+1. https://wiki.st.com/stm32mpu/wiki/Ethernet_device_tree_configuration#RGMII_with_Crystal_on_PHY-2C_CLK125_from_PHY_-28Reference_clock_-28standard_RGMII_clock_name-29_is_provided_by_a_Phy_Crystal-29
+
+2. RGMII Phy modes: -
+https://patchwork.kernel.org/project/linux-amlogic/patch/20161125131201.19994-2-martin.blumenstingl@googlemail.com/
