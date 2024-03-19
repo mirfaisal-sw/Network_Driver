@@ -1,0 +1,53 @@
+
+Path and file: - /drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
+========================================================================
+
+
+static int stmmac_xgmac2_mdio_read_c45(struct mii_bus *bus, int phyaddr,
+				       int devad, int phyreg)
+{
+	struct net_device *ndev = bus->priv;
+	struct stmmac_priv *priv;
+	u32 addr;
+
+	priv = netdev_priv(ndev);
+
+	stmmac_xgmac2_c45_format(priv, phyaddr, devad, phyreg, &addr);
+
+	return stmmac_xgmac2_mdio_read(priv, addr, MII_XGMAC_BUSY);
+}
+
+
+#define MII_XGMAC_PA_SHIFT		16
+#define MII_XGMAC_DA_SHIFT		21
+
+static void stmmac_xgmac2_c45_format(struct stmmac_priv *priv, int phyaddr,
+				     int devad, int phyreg, u32 *hw_addr)
+{
+	u32 tmp;
+
+	/* Set port as Clause 45 */
+	tmp = readl(priv->ioaddr + XGMAC_MDIO_C22P);
+	tmp &= ~BIT(phyaddr);
+	writel(tmp, priv->ioaddr + XGMAC_MDIO_C22P);
+
+	*hw_addr = (phyaddr << MII_XGMAC_PA_SHIFT) | (phyreg & 0xffff);
+	*hw_addr |= devad << MII_XGMAC_DA_SHIFT;
+}
+
+
+phyaddr << 16 | (phyreg & 0xffff)
+devad << 21
+
+phy_addr - 1
+phyreg - 1
+devaddr - 1
+
+phyaddr << 16 ==> 0x 01 00 00 
+phyreg & 0xffff ==> 0x1 
+
+phyaddr << 16 | (phyreg & 0xffff) => 0x01 00 01
+devad << 21 => 1 << 21  ==> 0x02 00 00 
+
+
+hwaddr => 0x03 00 01  

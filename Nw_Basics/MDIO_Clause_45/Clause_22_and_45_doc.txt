@@ -1,0 +1,14 @@
+
+
+
+Good Clause 22 and clause 45 docs: - 
+=========================================
+
+1. https://ndzri.blogspot.com/2021/08/mdio-clause-45-vs-clause-22.html
+
+2. https://cdn.intrepidcs.net/guides/rad-pluto/INCLUDE_PHY-Dashboard.html
+
+3. VVI
+	https://www.totalphase.com/support/articles/200349206-mdio-background/
+	
+4. chrome-extension://oemmndcbldboiebfnladdacbdfmadadm/https://www.ieee802.org/3/efm/public/nov02/oam/pannell_oam_1_1102.pdf
