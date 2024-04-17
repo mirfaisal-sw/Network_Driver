@@ -24,3 +24,8 @@
 	O/p - 
 	 Address		HWtyoe		HWaddress	Flag Mask	Iface
 	 172.16.107.1	ether	    00:50:56:c0:00:08     C		ens32
+	 
+	 
+5) To manipulate queue size in Linux driver queue or ring buffer: -
+
+	# ethtool -g eth0
