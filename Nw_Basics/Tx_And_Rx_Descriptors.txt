@@ -1,0 +1,139 @@
+
+I. what is Tx descriptor and Rx descriptor in network NIC
+===========================================================
+In network interface controllers (NICs), Tx (transmit) descriptors and Rx (receive) descriptors are data structures
+used by the NIC's hardware to manage the transmission and reception of network packets.
+
+1. **Tx Descriptors**:
+   - Tx descriptors are used for transmitting packets from the host system (your computer) to the network.
+   - Each Tx descriptor typically contains information about a single packet that needs to be transmitted, such as
+     the physical address of the packet buffer in memory, the length of the packet, and any control flags or status bits.
+   - The host CPU (or software driver) prepares a set of Tx descriptors with the necessary information about outgoing 
+     packets and places them in a Tx descriptor ring.
+   - The NIC hardware reads these descriptors from the ring, fetches the packet data from memory based on the information
+     in the descriptors, and transmits the packets onto the network.
+
+2. **Rx Descriptors**:
+   - Rx descriptors are used for receiving packets from the network into the host system.
+   - Each Rx descriptor typically contains information about a buffer in memory where the NIC should store incoming packet
+     data, along with metadata about the packet such as its length and status.
+   - The host CPU (or software driver) prepares a set of Rx descriptors and places them in a Rx descriptor ring.
+   - As incoming packets arrive at the NIC, the hardware reads the Rx descriptors from the ring, writes the packet data into
+     the corresponding buffers in memory, and updates the descriptors with information about the received packets.
+   - The host CPU (or software driver) periodically polls or is interrupted by the NIC to process the received packets by 
+     examining the updated Rx descriptors.
+
+In summary, Tx descriptors are used for transmitting packets from the host to the network, while Rx descriptors are used
+for receiving packets from the network into the host. They provide a mechanism for efficient communication between the host
+CPU and the NIC hardware, allowing for high-speed data transfer with minimal CPU overhead.
+
+II. what does Tx descriptors contains 
+=======================================
+
+Tx descriptors, or transmit descriptors, typically contain information necessary for the network interface controller (NIC)
+to transmit packets from the host system to the network. The specific contents of a Tx descriptor may vary depending on 
+the NIC's architecture and the requirements of the network protocol being used, but they commonly include:
+
+1. Buffer Address:
+--------------------
+This field contains the physical address of the buffer in the host system's memory where the packet data is stored. The NIC
+uses this address to access the packet data when transmitting it onto the network.
+
+2. Buffer Length:
+-------------------
+This field specifies the length of the packet data stored in the buffer. It tells the NIC how much data to transmit from the
+buffer onto the network.
+
+3. Control Flags: 
+-------------------
+Tx descriptors often include control flags or status bits that provide additional information about the packet being transmitted
+or control certain aspects of the transmission process. These flags may include things like checksum offload options, VLAN tagging
+information, or priority indicators.
+
+4. Packet Length:
+------------------- 
+Some implementations include a field to specify the total length of the packet being transmitted, which may differ from the buffer
+length if padding or additional headers are added.
+
+5. Timestamp: 
+-------------------
+In some advanced NICs or for specific applications, a timestamp field may be included in Tx descriptors to record the time when the
+packet was transmitted.
+
+6. Other Metadata: 
+---------------------
+Depending on the NIC's features and capabilities, additional metadata may be included in the Tx descriptor to support features like
+segmentation offload, large send offload, or priority queuing.
+
+These are common fields found in Tx descriptors, but the exact layout and contents may vary depending on the NIC's design and the
+requirements of the network protocol stack being used. The software driver or operating system responsible for managing the NIC 
+typically constructs and populates the Tx descriptors before handing them off to the NIC for transmission.
+
+
+III. what does Rx descriptors contains 
+=======================================
+Rx descriptors, or receive descriptors, are data structures used by network interface controllers (NICs) to manage the reception of
+packets from the network into the host system. The contents of Rx descriptors may vary depending on the NIC's architecture and the
+requirements of the network protocol being used, but they commonly include:
+
+1. **Buffer Address**: 
+This field contains the physical address of the buffer in the host system's memory where the NIC should store the received packet
+data. The NIC uses this address to write the incoming packet data into the buffer.
+
+2. **Buffer Length**: 
+Similar to Tx descriptors, this field specifies the length of the buffer allocated to store the received packet data. It tells 
+the NIC how much space is available in the buffer to write the incoming packet data.
+
+3. **Packet Length**: 
+This field indicates the length of the received packet, providing information about how much data the NIC has written into the buffer.
+
+4. **Status Flags**: 
+Rx descriptors often include status flags or control bits that provide information about the received packet or control certain aspects
+of the reception process. These flags may indicate whether the packet was received without errors, whether it was truncated, whether it
+was tagged with VLAN information, etc.
+
+5. **Checksum Verification**: 
+Some NICs offload checksum verification to hardware, and Rx descriptors may include information about the result of checksum verification
+for the received packet.
+
+6. **Timestamp**: 
+In certain NICs or for specific applications, a timestamp field may be included in Rx descriptors to record the time when the packet was
+received.
+
+7. **Header Information**: 
+Depending on the NIC's features and capabilities, Rx descriptors may include additional metadata or header information extracted from the
+received packet, such as source and destination MAC addresses, VLAN tags, EtherType or protocol information, etc.
+
+8. **Other Metadata**: 
+Additional fields may be included in Rx descriptors to support features like receive-side scaling (RSS), packet filtering, packet
+prioritization, or segmentation offload.
+
+These are common fields found in Rx descriptors, but the exact layout and contents may vary depending on the NIC's design and the 
+requirements of the network protocol stack being used. The software driver or operating system responsible for managing the NIC typically
+processes the Rx descriptors to retrieve the received packet data and take appropriate actions based on the information contained in the 
+descriptors.
+
+IV. where does Rx descriptors seats in NIC or driver
+=======================================================
+Rx descriptors reside in both the network interface controller (NIC) hardware and the driver software running on the host system.
+
+1. **NIC Hardware**:
+   - The NIC hardware typically contains a set of registers or memory locations dedicated to storing Rx descriptors.
+   - These descriptors are used by the NIC to manage the reception of packets from the network.
+   - The NIC hardware reads Rx descriptors from a descriptor ring (a circular buffer of descriptors) and writes received packet 
+	 data into host memory based on the information in the descriptors.
+
+2. **Driver Software**:
+   - The device driver running on the host system is responsible for managing Rx descriptors.
+   - The driver creates and initializes the Rx descriptor ring in host memory, populating it with Rx descriptors.
+   - As incoming packets arrive at the NIC, the driver updates the Rx descriptors with information about the received packets 
+     (such as packet length, buffer address, status flags, etc.).
+   - The driver typically sets up interrupt mechanisms or polling routines to be notified by the NIC when new packets arrive or when
+     Rx descriptors need to be processed.
+   - When the driver receives notification that packets have been received or that descriptors need to be processed, it examines the
+     updated Rx descriptors, retrieves the received packet data from host memory, and takes appropriate actions (e.g., passing the 
+	 packets up the network stack for processing by the operating system).
+
+In summary, Rx descriptors are used by both the NIC hardware and the driver software to manage the reception of packets from the
+network. The descriptors reside in host memory and are accessed and manipulated by both the NIC hardware and the driver as part of 
+the packet reception process.
