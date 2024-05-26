@@ -1,0 +1,9 @@
+
+Is my MAC address public when browsing the Internet?
+-------------------------------------------------------
+
+The MAC-address is part of the Link-Layer in the OSI Network Model. It's only used for communication in 
+our local network, be it cabled or wireless.
+The computers MAC definitely gets lost when it passes through router, the router only transmits the IP 
+packet to "the Internet". When connecting to the internet our router will not use our computers, but its
+own MAC address to forward the packet.
