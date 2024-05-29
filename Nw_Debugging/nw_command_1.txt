@@ -29,3 +29,11 @@
 5) To manipulate queue size in Linux driver queue or ring buffer: -
 
 	# ethtool -g eth0
+	
+6) ip - show / manipulate routing, devices, policy routing and tunnels
+
+	ip -s monitor           (Monitor statistics)
+	O/p - 
+	192.168.137.1 dev eth1 lladdr 8c:8c:aa:f5:21:b0  ref 2 used 2/42/0probes 1 PROBE
+	192.168.137.1 dev eth1 lladdr 8c:8c:aa:f5:21:b0  ref 2 used 0/0/0probes 1 REACHABLE
+	192.168.137.1 dev eth1 lladdr 8c:8c:aa:f5:21:b0  ref 1 used 15/15/0probes 1 STALE
