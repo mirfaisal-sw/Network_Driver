@@ -37,3 +37,157 @@
 	192.168.137.1 dev eth1 lladdr 8c:8c:aa:f5:21:b0  ref 2 used 2/42/0probes 1 PROBE
 	192.168.137.1 dev eth1 lladdr 8c:8c:aa:f5:21:b0  ref 2 used 0/0/0probes 1 REACHABLE
 	192.168.137.1 dev eth1 lladdr 8c:8c:aa:f5:21:b0  ref 1 used 15/15/0probes 1 STALE
+	
+7) To read MAC address: -
+
+	# ifconfig -a 
+
+    or
+
+	# cat /sys/class/net/eth1/address
+	
+8) Ping using the VLAN interface
+
+	I. Add VLAN ID 73 to the ethernet interface on the Host.
+
+	II.Create VLAN interface on the Target
+	
+		# ip link add link eth0 name eth0.73 type vlan id 73
+		# ifconfig eth0.73 192.168.3.1 up
+
+	III.Ping the Host(Desktop)
+		
+		# ping 192.168.3.5
+		
+10. Iperf speed test: -
+
+	Ex. Host/PC IP: 192.168.2.6
+		Target IP: 192.168.2.1
+	
+	On host (Desktop)
+		# iperf3 -s 
+
+	On Target
+		# iperf3 -c 192.168.2.6
+		
+		
+	Actual test result:
+	--------------------
+	Test - I : Send data from client(PC in this case) to Server
+	
+	On PC:
+	# iperf3 -c 192.168.2.6
+	O/p - 
+	Connecting to host 192.168.2.1, port 5201
+	[  5] local 192.168.2.6 port 58772 connected to 192.168.2.1 port 5201
+	[ ID] Interval           Transfer     Bitrate
+	[  5]   0.00-1.00   sec  42.8 MBytes   358 Mbits/sec
+	[  5]   1.00-2.00   sec  39.8 MBytes   334 Mbits/sec
+	[  5]   2.00-3.00   sec  41.2 MBytes   346 Mbits/sec
+	[  5]   3.00-4.00   sec  41.1 MBytes   345 Mbits/sec
+	[  5]   4.00-5.00   sec  41.2 MBytes   346 Mbits/sec
+	[  5]   5.00-6.00   sec  41.1 MBytes   345 Mbits/sec
+	[  5]   6.00-7.00   sec  41.1 MBytes   345 Mbits/sec
+	[  5]   7.00-8.00   sec  41.2 MBytes   346 Mbits/sec
+	[  5]   8.00-9.00   sec  7.75 MBytes  65.0 Mbits/sec
+	[  5]   9.00-10.00  sec  0.00 Bytes  0.00 bits/sec
+	- - - - - - - - - - - - - - - - - - - - - - - - -
+	[ ID] Interval           Transfer     Bitrate
+	[  5]   0.00-10.00  sec   337 MBytes   283 Mbits/sec                  sender
+	[  5]   0.00-10.00  sec  0.00 Bytes  0.00 bits/sec                  receiver
+	iperf3: error - unable to send control message - port may not be available, the other side may have stopped running, etc.: Connection reset by peer
+	
+	On target: -
+	# iperf3 -s
+	-----------------------------------------------------------
+	Server listening on 5201 (test #1)
+	-----------------------------------------------------------
+	Accepted connection from 192.168.2.6, port 58771
+	[  5] local 192.168.2.1 port 5201 connected to 192.168.2.6 port 58772
+	[ ID] Interval           Transfer     Bitrate
+	[  5]   0.00-1.00   sec  40.8 MBytes   342 Mbits/sec
+	[  5]   1.00-2.00   sec  39.7 MBytes   333 Mbits/sec
+	[  5]   2.00-3.00   sec  41.2 MBytes   346 Mbits/sec
+	[  5]   3.00-4.00   sec  41.2 MBytes   345 Mbits/sec
+	[  5]   4.00-5.00   sec  41.2 MBytes   346 Mbits/sec
+	[  5]   5.00-6.00   sec  41.2 MBytes   345 Mbits/sec
+	[  5]   6.00-7.00   sec  41.2 MBytes   345 Mbits/sec
+	[  5]   7.00-8.00   sec  41.2 MBytes   346 Mbits/sec
+	[  5]   8.00-9.00   sec  8.98 MBytes  75.3 Mbits/sec
+	[  5]   9.00-10.00  sec  0.00 Bytes  0.00 bits/sec
+	- - - - - - - - - - - - - - - - - - - - - - - - -
+	[ ID] Interval           Transfer     Bitrate
+	[  5]   0.00-10.01  sec   337 MBytes   282 Mbits/sec                  receiver
+	
+	
+	Test - II: Send data from Server to client(PC in this case)
+	----------
+		
+	On PC:
+	# iperf3 -c 192.168.2.6 -R      //(Here, -R means reverse mode)
+	Output: -	
+	Connecting to host 192.168.2.1, port 5201
+	Reverse mode, remote host 192.168.2.1 is sending
+	[  5] local 192.168.2.6 port 60943 connected to 192.168.2.1 port 5201
+	[ ID] Interval           Transfer     Bitrate
+	[  5]   0.00-1.00   sec  26.6 MBytes   223 Mbits/sec
+	[  5]   1.00-2.00   sec  25.5 MBytes   214 Mbits/sec
+	[  5]   2.00-3.00   sec  25.4 MBytes   213 Mbits/sec
+	[  5]   3.00-4.00   sec  24.2 MBytes   203 Mbits/sec
+	[  5]   4.00-5.00   sec  24.6 MBytes   207 Mbits/sec
+	[  5]   5.00-6.00   sec  23.4 MBytes   196 Mbits/sec
+	[  5]   6.00-7.00   sec  26.5 MBytes   222 Mbits/sec
+	[  5]   7.00-8.00   sec  26.4 MBytes   221 Mbits/sec
+	[  5]   8.00-9.00   sec  25.6 MBytes   215 Mbits/sec
+	[  5]   9.00-10.00  sec  26.9 MBytes   225 Mbits/sec
+	- - - - - - - - - - - - - - - - - - - - - - - - -
+	[ ID] Interval           Transfer     Bitrate         Retr
+	[  5]   0.00-10.00  sec   255 MBytes   214 Mbits/sec  7043             sender
+	[  5]   0.00-10.00  sec   255 MBytes   214 Mbits/sec                  receiver
+
+	iperf Done.
+	
+	On target: -
+	# iperf3 -s
+	-----------------------------------------------------------
+	Server listening on 5201 (test #1)
+	-----------------------------------------------------------
+	Accepted connection from 192.168.2.6, port 60942
+	[  5] local 192.168.2.1 port 5201 connected to 192.168.2.6 port 60943
+	[ ID] Interval           Transfer     Bitrate         Retr  Cwnd
+	[  5]   0.00-1.00   sec  26.9 MBytes   225 Mbits/sec  765   41.3 KBytes
+	[  5]   1.00-2.00   sec  25.5 MBytes   214 Mbits/sec  853   41.3 KBytes
+	[  5]   2.00-3.00   sec  25.3 MBytes   212 Mbits/sec  627   47.1 KBytes
+	[  5]   3.00-4.00   sec  24.4 MBytes   205 Mbits/sec  465   41.3 KBytes
+	[  5]   4.00-5.00   sec  24.5 MBytes   206 Mbits/sec  743   34.2 KBytes
+	[  5]   5.00-6.00   sec  23.6 MBytes   198 Mbits/sec  567   37.1 KBytes
+	[  5]   6.00-7.00   sec  26.5 MBytes   222 Mbits/sec  814   35.6 KBytes
+	[  5]   7.00-8.00   sec  26.4 MBytes   222 Mbits/sec  718   32.8 KBytes
+	[  5]   8.00-9.00   sec  25.7 MBytes   215 Mbits/sec  627   1.43 KBytes
+	[  5]   9.00-10.00  sec  26.8 MBytes   225 Mbits/sec  864   31.4 KBytes
+	- - - - - - - - - - - - - - - - - - - - - - - - -
+	[ ID] Interval           Transfer     Bitrate         Retr
+	[  5]   0.00-10.00  sec   255 MBytes   214 Mbits/sec  7043             sender
+	-----------------------------------------------------------
+	Server listening on 5201 (test #2)
+	-----------------------------------------------------------
+	
+11. Ping Host using virtio-net SYS interface using bridge.
+
+
+	Note:  
+	======
+	1) 
+	If any time ping does not work, then on windows PC run below commands: - 
+	> Get-NetConnectionProfile
+	> Set-NetConnectionProfile -InterfaceIndex <Interface_Number> -NetworkCategory Private
+	
+	Ex -  Set-NetConnectionProfile -InterfaceIndex <Interface_Number> -NetworkCategory Private
+	
+	2.)
+	There are two types of VLAN: -
+	a. Switch port based VLAN
+	b. Tag based VLAN
+	
+	We will see tag based VLAN, which is created on top of single physical
+	ethernet interface i.e. "eth0".
