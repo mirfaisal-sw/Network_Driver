@@ -1,0 +1,26 @@
+
+Dmesg log: -
+-----------------
+
+# ifconfig -a
+//...
+virtnC0: flags=0<  mtu 0
+        netrom   txqueuelen 1000  (AMPR NET/ROM)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+# ifconfig virtnC0 192.168.2.1 up
+# dmesg | tail
+//....
+[ 9214.784290] virtual_nic device initialized
+//....
+[ 9254.729632] virtual_nic_open called
+
+# ifconfig virtnC0 down 
+# dmesg | tail
+[ 9279.095467] virtual_nic_release called
+
+
+
