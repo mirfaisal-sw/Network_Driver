@@ -1,0 +1,9 @@
+
+
+	https://wiki.linuxfoundation.org/networking/napi
+	
+	https://docs.kernel.org/networking/napi.html
+	
+	https://www.linkedin.com/pulse/deep-dive-napi-optimizing-network-performance-linux-kernel-sahoo-opa1c/
+	
+	https://medium.com/@boutnaru/the-linux-process-journey-napi-new-api-60444e146aaf
