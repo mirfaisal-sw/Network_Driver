@@ -1,0 +1,25 @@
+
+
+Changes in Link State
+------------------------
+Network connections, by definition, deal with the world outside the local system. They are thus often affected by outside events,
+and they can be transient things. The networking subsystem needs to know when network links go up or down, and it provides a few
+functions that the driver may use to convey that information.
+
+Most networking technologies involving an actual, physical connection provide a carrier state; the presence of the carrier means
+that the hardware is present and ready to function. Ethernet adapters, for example, sense the carrier signal on the wire; when a
+user trips over the cable, that carrier vanishes, and the link goes down. By default, network devices are assumed to have a carrier
+signal present. The driver can change that state explicitly, however, with these functions:
+
+void netif_carrier_off(struct net_device *dev);
+void netif_carrier_on(struct net_device *dev);
+
+If your driver detects a lack of carrier on one of its devices, it should call netif_carrier_off to inform the kernel of this change.
+When the carrier returns, netif_carrier_on should be called. Some drivers also call netif_carrier_off when making major configuration
+changes (such as media type); once the adapter has finished resetting itself, the new carrier will be detected and traffic can resume.
+
+An integer function also exsists:
+
+int netif_carrier_ok(struct net_device *dev);
+
+This can be used to test the current carrier state (as reflected in the device structure).
