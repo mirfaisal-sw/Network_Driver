@@ -1,0 +1,19 @@
+
+
+rtnl_lock()
+==============
+
+RTNL => Routing Netlink
+
+In the Linux kernel, rtnl_lock refers to a lock used to protect the routing and networking subsystem's data
+structures from concurrent access. It ensures that operations on these structures, such as modifying routing
+tables, interfaces, or any network-related configurations, are thread-safe.
+
+The lock is part of the Routing Netlink (RTNL) subsystem, which is a communication interface between the kernel
+and user space for network-related configurations. When a process wants to change the networking state (like
+adding or deleting a route or interface), it must acquire this lock to prevent race conditions or inconsistent
+states caused by simultaneous modifications from different contexts.
+
+Typically, developers will use rtnl_lock() to acquire the lock before performing changes and rtnl_unlock() to
+release it afterward. This locking mechanism helps maintain the integrity of the networking state in a multi-
+threaded environment.
