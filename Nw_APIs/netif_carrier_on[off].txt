@@ -14,8 +14,8 @@ signal present. The driver can change that state explicitly, however, with these
 void netif_carrier_off(struct net_device *dev);
 void netif_carrier_on(struct net_device *dev);
 
-If your driver detects a lack of carrier on one of its devices, it should call netif_carrier_off to inform the kernel of this change.
-When the carrier returns, netif_carrier_on should be called. Some drivers also call netif_carrier_off when making major configuration
+If your driver detects a lack of carrier on one of its devices, it should call netif_carrier_off() to inform the kernel of this change.
+When the carrier returns, netif_carrier_on() should be called. Some drivers also call netif_carrier_off() when making major configuration
 changes (such as media type); once the adapter has finished resetting itself, the new carrier will be detected and traffic can resume.
 
 An integer function also exsists:
