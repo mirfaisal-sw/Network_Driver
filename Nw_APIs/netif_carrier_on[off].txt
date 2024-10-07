@@ -23,3 +23,5 @@ An integer function also exsists:
 int netif_carrier_ok(struct net_device *dev);
 
 This can be used to test the current carrier state (as reflected in the device structure).
+
+TML_Gen3_Ethernet_Passthrough
