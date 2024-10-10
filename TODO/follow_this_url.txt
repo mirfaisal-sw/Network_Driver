@@ -1,0 +1,5 @@
+
+
+	https://epickrram.blogspot.com/2016/05/navigating-linux-kernel-network-stack.html
+	
+	https://people.redhat.com/pladd/MHVLUG_2017-04_Network_Receive_Stack.pdf
