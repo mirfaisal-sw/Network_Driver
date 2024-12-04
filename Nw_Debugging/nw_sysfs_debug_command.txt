@@ -8,3 +8,5 @@ O/p - 0 (It indicates carrier is Off)
 O/p - {count, indicating how many times carrier went down.}
 
 # cat /sys/class/net/ethPhy0/carrier_up_count
+
+
