@@ -1,0 +1,27 @@
+
+ethtool command: -
+--------------------
+The ethtool command is used to display/change Ethernet adapter settings. We can change network card speed,
+auto-negotiation, wake on LAN setting, duplex mode using this tool in Linux.
+
+1. Read status of Ethernet interface
+  "ethtool" command can be used to retrieve the status of the Ethernet interface. The output displays properties
+  like speed, duplex, status and wake on of the etho interface.
+  
+  # ethtool eth0
+  
+2. Display statistics: -
+	a. # ethtool -i eth0
+	
+	driver: tc9562_gmac
+	version: V_01-01
+	firmware-version: Firmware Version REL_1.1-1
+	expansion-rom-version:
+	bus-info:
+	supports-statistics: yes
+	supports-test: no
+	supports-eeprom-access: no
+	supports-register-dump: yes
+	supports-priv-flags: no
+	
+	b. # ethtool -S eth0

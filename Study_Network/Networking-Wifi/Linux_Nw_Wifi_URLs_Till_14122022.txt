@@ -1,0 +1,10 @@
+
+WiFi:-
+=======
+
+	1) https://www.apriorit.com/dev-blog/645-lin-linux-wi-fi-driver-tutorial-how-to-write-simple-linux-wireless-driver-prototype
+	2) https://www.kernel.org/doc/html/latest/driver-api/80211/introduction.html
+
+	3) https://www.youtube.com/watch?v=dDMNNDTzjQ0
+	4) VVI - https://www.youtube.com/watch?v=SQcJD9Nt1ME
+	5) https://www.youtube.com/watch?v=pa1oEyc7Dm0

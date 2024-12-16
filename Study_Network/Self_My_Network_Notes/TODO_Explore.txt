@@ -1,0 +1,6 @@
+
+
+1) Zerocopy: -
+-Z, --zerocopy
+              Use a "zero copy" method of sending data, such  as  sendfile(2),
+              instead of the usual write(2).

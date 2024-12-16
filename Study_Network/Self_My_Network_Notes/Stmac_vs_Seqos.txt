@@ -1,0 +1,7 @@
+
+
+
+1. BMW IDCEvo uses "STMAC" eth driver.
+
+2. Audi HCP3 uses "SEQOS" driver.
+

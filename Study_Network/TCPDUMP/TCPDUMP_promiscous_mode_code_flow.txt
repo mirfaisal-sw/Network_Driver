@@ -1,0 +1,45 @@
+
+File: - drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+---------------------------------------------------------------
+static void dwxgmac2_set_filter(struct mac_device_info *hw,
+                                struct net_device *dev)
+{
+	void __iomem *ioaddr = (void __iomem *)dev->base_addr;
+	u32 value = readl(ioaddr + XGMAC_PACKET_FILTER);
+	int mcbitslog2 = hw->mcast_bits_log2;
+	u32 mc_filter[8];
+	int i;
+
+	value &= ~(XGMAC_FILTER_PR | XGMAC_FILTER_HMC | XGMAC_FILTER_PM);
+	value |= XGMAC_FILTER_HPF;
+
+	memset(mc_filter, 0, sizeof(mc_filter));
+
+	if (dev->flags & IFF_PROMISC) {
+			value |= XGMAC_FILTER_PR;
+			value |= XGMAC_FILTER_PCF;
+	} else if ((dev->flags & IFF_ALLMULTI) ||
+			   (netdev_mc_count(dev) > hw->multicast_filter_bins)) {
+			value |= XGMAC_FILTER_PM;
+
+			for (i = 0; i < XGMAC_MAX_HASH_TABLE; i++)
+					writel(~0x0, ioaddr + XGMAC_HASH_TABLE(i));
+	} else if (!netdev_mc_empty(dev) && (dev->flags & IFF_MULTICAST)) {
+			struct netdev_hw_addr *ha;
+
+			value |= XGMAC_FILTER_HMC;
+
+			netdev_for_each_mc_addr(ha, dev) {
+					u32 nr = (bitrev32(~crc32_le(~0, ha->addr, 6)) >>
+									(32 - mcbitslog2));
+					mc_filter[nr >> 5] |= (1 << (nr & 0x1F));
+			}
+	}
+
+	dwxgmac2_set_mchash(ioaddr, mc_filter, mcbitslog2);
+
+	/* Handle multiple unicast addresses */
+	if (netdev_uc_count(dev) > hw->unicast_f
+		
+	//....
+}

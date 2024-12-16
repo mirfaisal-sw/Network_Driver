@@ -1,0 +1,5 @@
+
+
+
+1) To change static ip address of an interface to dynamic.
+	# ifconfig wlan1 0.0.0.0 0.0.0.0

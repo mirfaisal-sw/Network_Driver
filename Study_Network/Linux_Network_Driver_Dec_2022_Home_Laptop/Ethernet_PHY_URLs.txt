@@ -1,0 +1,17 @@
+
+
+
+	1) https://docs.xilinx.com/r/en-US/pg051-tri-mode-eth-mac/MDIO-Bus-System
+	
+	2) https://en.wikipedia.org/wiki/Management_Data_Input/Output
+	
+	3) 	https://www.youtube.com/watch?v=JH3cMYErmKI
+		
+		
+		https://www.youtube.com/watch?v=n6dZI_j9tjQ
+		https://www.youtube.com/watch?v=fRHkZPtsR5I
+		https://www.youtube.com/watch?v=aq0TLYXGQCA
+		
+		https://www.youtube.com/watch?v=K962S9gTBVM
+		
+		https://www.youtube.com/watch?v=5k1et72efdY

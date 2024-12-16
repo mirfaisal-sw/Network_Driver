@@ -1,0 +1,10 @@
+
+
+=> What are passive and active scanning?
+=========================================
+ The reason for client scanning is to determine a suitable AP to which the client may need to roam now or in the future.
+ A client can use two scanning methods: active and passive. During an active scan, the client radio transmits a probe request
+ and listens for a probe response from an AP. With a passive scan, the client radio listens on each channel for beacons sent 
+ periodically by an AP. A passive scan generally takes more time, since the client must listen and wait for a beacon versus actively 
+ probing to find an AP. Another limitation with a passive scan is that if the client does not wait long enough on a channel, then the 
+ client may miss an AP beacon.

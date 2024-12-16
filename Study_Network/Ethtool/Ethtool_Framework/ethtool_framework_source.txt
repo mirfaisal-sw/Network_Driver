@@ -1,0 +1,94 @@
+
+
+
+Kernel Source file: - <kernel root folder>/net/core/ethtool.c
+--------------------------------------------------------------------
+
+/* The main entry point in this file.  Called from net/core/dev_ioctl.c */
+int dev_ethtool(struct net *net, struct ifreq *ifr)
+{
+
+	case ETHTOOL_GPAUSEPARAM:
+		rc = ethtool_get_pauseparam(dev, useraddr);
+		break;
+	case ETHTOOL_SPAUSEPARAM:
+		rc = ethtool_set_pauseparam(dev, useraddr);
+		break;
+	case ETHTOOL_TEST:
+		rc = ethtool_self_test(dev, useraddr);
+		break;
+
+	return rc;
+}
+
+static int ethtool_get_pauseparam(struct net_device *dev, void __user *useraddr)
+{
+	struct ethtool_pauseparam pauseparam = { ETHTOOL_GPAUSEPARAM };
+
+	if (!dev->ethtool_ops->get_pauseparam)
+		return -EOPNOTSUPP;
+
+	dev->ethtool_ops->get_pauseparam(dev, &pauseparam);
+
+	if (copy_to_user(useraddr, &pauseparam, sizeof(pauseparam)))
+		return -EFAULT;
+	return 0;
+}
+
+static int ethtool_set_pauseparam(struct net_device *dev, void __user *useraddr)
+{
+	struct ethtool_pauseparam pauseparam;
+
+	if (!dev->ethtool_ops->set_pauseparam)
+		return -EOPNOTSUPP;
+
+	if (copy_from_user(&pauseparam, useraddr, sizeof(pauseparam)))
+		return -EFAULT;
+
+	return dev->ethtool_ops->set_pauseparam(dev, &pauseparam);
+}
+
+
+Macro definition: - 
+-----------------------
+/include/uapi/linux/ethtool.h
+
+#define ETHTOOL_GPAUSEPARAM	0x00000012 /* Get pause parameters */
+#define ETHTOOL_SPAUSEPARAM	0x00000013 /* Set pause parameters. */
+#define ETHTOOL_GRXCSUM		0x00000014 /* Get RX hw csum enable (ethtool_value) */
+#define ETHTOOL_SRXCSUM		0x00000015 /* Set RX hw csum enable (ethtool_value) */
+#define ETHTOOL_GTXCSUM		0x00000016 /* Get TX hw csum enable (ethtool_value) */
+#define ETHTOOL_STXCSUM		0x00000017 /* Set TX hw csum enable (ethtool_value) */
+#define ETHTOOL_GSG		0x00000018 /* Get scatter-gather enable
+
+
+
+User space ethtool utility: -
+---------------------------------------
+main() function - test-cmdline.c
+Reference:- https://github.com/serhepopovych/ethtool/blob/master/ethtool.c
+
+From user space utility "ethtool" source code, we can know that 
+command line option "-a| --show-pause" calls other function - "do_gpause()".
+
+static int do_gpause(struct cmd_context *ctx)
+{
+	struct ethtool_pauseparam epause;
+	struct ethtool_cmd ecmd;
+	int err;
+
+	if (ctx->argc != 0)
+		exit_bad_args();
+
+	fprintf(stdout, "Pause parameters for %s:\n", ctx->devname);
+
+	epause.cmd = ETHTOOL_GPAUSEPARAM;
+	err = send_ioctl(ctx, &epause);
+	if (err) {
+		perror("Cannot get device pause settings");
+		return 76;
+	}
+	....
+}
+
+#define ETHTOOL_GPAUSEPARAM	0x00000012 /* Get pause parameters */

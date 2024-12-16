@@ -1,0 +1,11 @@
+
+## Command to create virtual interface: -
+------------------------------------------------
+	# ip link add link eth0 name eth0.100 type vlan id 100
+	
+## Watch detailed information of a link: -
+---------------------------------------------
+	# ip -d link show dev eth0.100 | grep 'vlan protocol'
+	vlan protocol 802.1Q id 5 <REORDER_HDR>
+	
+	# bridge vlan show
