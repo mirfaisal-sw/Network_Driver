@@ -1,0 +1,7 @@
+
+
+1) lspci -v
+   lspic -t
+   lspci -nn
+   lspci
+	

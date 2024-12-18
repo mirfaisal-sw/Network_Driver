@@ -1,0 +1,19 @@
+
+
+
+Path of VLAN code in Linux kernel: -
+-------------------------------------
+
+	<kernel_src>/net/8021q
+
+
+
+VLAN filtering
+-------------------
+The following two components are used in the Linux kernel for dealing with 802.1Q VLAN tags:
+
+I. The 8021q module (activated by CONFIG_VLAN_8021Q) for creating VLAN subinterfaces of network
+   devices with tagged traffic.
+   
+II. The CONFIG_BRIDGE_VLAN_FILTERING support for implementing 802.1d bridging (port membership
+    enforcements).

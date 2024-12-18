@@ -1,0 +1,7 @@
+
+IGMP : -
+---------
+The Internet Group Management Protocol (IGMP) is a protocol that allows several
+devices to share one IP address so they can all receive the same data. IGMP is a
+network layer protocol used to set up multicasting on networks that use the Internet
+Protocol version 4 (IPv4).

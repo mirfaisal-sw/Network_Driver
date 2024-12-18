@@ -1,0 +1,8 @@
+
+
+
+	1. http://www.candelatech.com/~greear/vlan.html
+	
+	2. https://www.slideshare.net/slideshow/vlans-in-the-linux-kernel/62526742
+	
+	[Download slide using - https://www.slidegrabber.com/view.html ]

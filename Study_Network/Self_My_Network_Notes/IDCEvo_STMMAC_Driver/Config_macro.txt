@@ -1,0 +1,7 @@
+
+
+obj-$(CONFIG_DWMAC_SXGMAC)      += sxgmac.o
+sxgmac-objs:= dwmac-sxgmac.o sxgmac_fe_core.o sxgmac_fe_dma.o \
+              sxgmac_vlink.o sxgmac_fe_mdio.o sxpcs/sxpcs_cal.o
+			  
+	=> CONFIG_DWMAC_SXGMAC and CONFIG_STMMAC_ETH are required for ethernet driver
